@@ -1,0 +1,31 @@
+BootStrap: docker
+From: ubuntu:16.04
+
+%help
+My first train container
+Run the sl train
+
+%setup
+mkdir ${SINGULARITY_ROOTFS}/data
+
+%post
+apt-get -y update
+apt -y install sl
+
+%help
+Help me. The train is stuck in this container.
+
+
+%labels
+Maintainer dehneg
+Updater Rémy Dernat <remy.dernat@umontpellier.fr>
+ContainerVersion v1.5
+Software sl
+
+%environment
+    export LC_ALL=en_US.utf8
+    export PATH=/usr/games:$PATH
+
+%runscript
+sl
+echo les arguments passés au container sont "$*"
