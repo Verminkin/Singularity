@@ -1,0 +1,54 @@
+#COMMANDE POUR BUILD
+#sudo singularity build linuxexe.simg linuxexe.def
+##############################################
+#SYNTHAXE
+BootStrap: docker
+#VERSION OS
+From: ubuntu:latest
+
+#AIDE
+%help
+Help me. I'm in the container.
+
+#############################################
+#AVANT LA CONSTRUCTION
+%setup
+# Both of the below are copied before %post
+    touch CR.txt
+    mkdir ${SINGULARITY_ROOTFS}/TP1
+    touch ${SINGULARITY_ROOTFS}/TP1/exemple.c
+#############################################
+#COPIE DE FICHIER
+#Si le fichier est à la racine
+%files
+        #FICHIER à IMPORTER
+        CR.txt
+        #DESTINATION
+        CR.txt /opt
+#############################################
+%labels
+    Maintainer Wilfried DAUNIQUE#Verminkin
+    Version v1.0
+#############################################
+#VARIABLE D'ENVIRONNEMENT NECESSAIRE
+%environment
+    VADOR=badguy
+    LUKE=goodguy
+    SOLO=someguy
+    export VADER LUKE SOLO
+#############################################
+#INSTALLATION DANS LE CONTENEUR
+%post
+  apt-get -y update
+  apt-get -y install fortune cowsay lolcat
+  echo 'export JAWA_SEZ=wutini' >> $SINGULARITY_ENVIRONMENT
+  echo "Installing Development Tools YUM group"
+  yum -y groupinstall "Development Tools"
+  echo "Installing OpenMPI into container..."
+#############################################
+#SCRIPT APRES L'INSTALLATION SERRE DE TEST
+  %runscript
+      echo "KERMIT!"
+      echo "Arguments received: $*"
+      exec echo "$@"
+#############################################

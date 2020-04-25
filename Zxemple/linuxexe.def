@@ -1,0 +1,35 @@
+BootStrap: docker
+From: ubuntu:latest
+
+%help
+Help me. I'm in the container.
+
+%setup
+
+    touch CR.txt
+    mkdir ${SINGULARITY_ROOTFS}/TP1
+    touch ${SINGULARITY_ROOTFS}/TP1/exemple.c
+
+%files
+    CR.txt
+    CR.txt /opt
+
+%labels
+    Maintainer Wilfried DAUNIQUE#Verminkin
+    Version v1.0
+
+%environment
+    VADOR=badguy
+    LUKE=goodguy
+    SOLO=someguy
+    export VADER LUKE SOLO
+
+%post
+    apt-get -y update
+    apt-get -y install fortune cowsay lolcat
+
+
+%runscript
+    echo "KERMIT!"
+    echo "Arguments received: $*"
+    exec echo "$@"
