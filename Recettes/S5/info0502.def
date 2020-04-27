@@ -1,0 +1,22 @@
+BootStrap: docker
+From: Ubuntu:latest
+
+%help
+  Container INFO0502
+
+%setup
+
+%files
+
+%labels
+  CREATOR Maxence MARCHAND
+
+%environment
+
+%post
+  apt-add-repository ppa:swi-prolog/stable
+  apt-get update
+  apt-get install swi-prolog
+
+%runscript
+  swipl
