@@ -1,4 +1,4 @@
-BootStrap: docker
+Bootstrap: docker
 From: Ubuntu:latest
 
 %help
@@ -15,8 +15,7 @@ From: Ubuntu:latest
 
 %post
   apt-add-repository ppa:swi-prolog/stable
-  apt-get update
-  apt-get install swi-prolog
+  apt-get -y update
+  apt-get -y install swi-prolog
 
 %runscript
-  swipl
