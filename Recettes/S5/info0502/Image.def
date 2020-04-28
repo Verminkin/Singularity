@@ -33,11 +33,12 @@ Help me. Im in the container.
     echo "Vim "
     apt-get -y install vim
     echo "Vim done"
-    echo"clean"
+    echo "swi prolog"
+    apt-get -y install swi-prolog
+    echo "swi prolog done"
+    echo "clean"
     apt-get clean
-    echo"all update/install done"
-
-
+    echo "all update/install done"
 
 
 %runscript
