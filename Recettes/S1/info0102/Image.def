@@ -1,0 +1,51 @@
+BootStrap: docker
+From: ubuntu:latest
+
+%help
+Help me. I'm in the container.
+
+%setup
+
+    mkdir ${SINGULARITY_ROOTFS}/TP
+    touch ${SINGULARITY_ROOTFS}/TP
+
+%files
+
+%labels
+    Maintainer Wilfried DAUNIQUE#Verminkin
+    Version v1.0
+
+%environment
+    STABLE=True
+
+
+%post
+
+    # Set time zone. Use whatever you prefer instead of UTC.
+    ln -s /usr/share/zoneinfo/UTC /etc/localtime
+    echo 'LANG=en_US.UTF-8' > /etc/locale.conf
+    echo "update"
+    apt-get -y update && apt-get -y install wget build-essential
+    echo "update done"
+    echo "nodejs "
+    apt-get -y install nodejs npm
+    apt-get -y install vim
+    apt-get clean
+    echo "nodejs done"
+
+
+
+
+
+%runscript
+    echo "install done"
+    echo "Arguments received: $*"
+    exec echo "$@"
+
+%test
+    grep -q NAME=\"Ubuntu\" /etc/os-release
+    if [ $? -eq 0 ]; then
+        echo "Container base is Ubuntu as expected."
+    else
+        echo "Container base is not Ubuntu."
+    fi
