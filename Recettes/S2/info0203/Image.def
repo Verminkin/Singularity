@@ -23,12 +23,13 @@ Help me. Im in the container.
     echo 'LANG=en_US.UTF-8' > /etc/locale.conf
     echo "update"
     apt-get -y update && apt-get -y install wget build-essential
+    apt full-upgrade -y
     echo "update done"
     echo "java jre + jdk"
-    apt install default-jre
-    apt install default-jdk
-    add-apt-repository ppa:webupd8team/java
-    apt-get -y update
+    apt install -y default-jre
+    apt install -y default-jdk
+    #add-apt-repository ppa:webupd8team/java
+    #apt-get -y update
     echo "java done"
     echo "Vim "
     apt-get -y install vim
@@ -36,10 +37,10 @@ Help me. Im in the container.
     echo "netEmul"
     apt-get install -y netemul
     echo "netEmul done"
-    echo "GNS3"
-    add-apt-repository ppa:gns3/ppa
-    sudo apt -y update
-    echo "GNS3 done"
+    #echo "GNS3"
+    #add-apt-repository ppa:gns3/ppa
+    #sudo apt -y update
+    #echo "GNS3 done"
     echo"clean"
     apt-get clean
     echo"all update/install done"

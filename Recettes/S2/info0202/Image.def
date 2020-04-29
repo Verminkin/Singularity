@@ -23,12 +23,14 @@ Help me. Im in the container.
     echo 'LANG=en_US.UTF-8' > /etc/locale.conf
     echo "update"
     apt-get -y update && apt-get -y install wget build-essential
+    apt full-upgrade
+
     echo "update done"
     echo "java jre + jdk"
     apt install default-jre
     apt install default-jdk
-    add-apt-repository ppa:webupd8team/java
-    apt-get -y update
+    #add-apt-repository ppa:webupd8team/java
+    #apt-get -y update
     echo "java done"
     echo "Vim "
     apt-get -y install vim
