@@ -1,0 +1,19 @@
+BootStrap: docker
+From: ubuntu:latest
+
+%setup
+    mkdir ${SINGULARITY_ROOTFS}/TP
+    touch ${SINGULARITY_ROOTFS}/TP
+
+%labels
+  Maintainer Maxence MARCHAND
+  Version 1.0
+
+%post
+  apt-get -y update
+  apt-get -y install build-essential
+  apt-get -y install vim
+  apt-get -y install flex bison
+
+%runscript
+  echo "Installation effectuée"
