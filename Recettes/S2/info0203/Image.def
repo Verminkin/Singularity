@@ -33,10 +33,16 @@ Help me. Im in the container.
     echo "Vim "
     apt-get -y install vim
     echo "Vim done"
+    echo "netEmul"
+    apt-get install -y netemul
+    echo "netEmul done"
+    echo "GNS3"
+    add-apt-repository ppa:gns3/ppa
+    sudo apt -y update
+    echo "GNS3 done"
     echo"clean"
     apt-get clean
     echo"all update/install done"
-
 
 %runscript
     echo "install done"

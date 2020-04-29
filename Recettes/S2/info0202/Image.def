@@ -17,7 +17,7 @@ Help me. Im in the container.
 
 %environment
     STABLE=True
-
+%post
     # Set time zone. Use whatever you prefer instead of UTC.
     ln -s /usr/share/zoneinfo/UTC /etc/localtime
     echo 'LANG=en_US.UTF-8' > /etc/locale.conf
