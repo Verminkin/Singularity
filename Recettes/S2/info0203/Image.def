@@ -6,46 +6,50 @@ Help me. Im in the container.
 
 %setup
 
-    mkdir ${SINGULARITY_ROOTFS}/TP
-    touch ${SINGULARITY_ROOTFS}/TP
+mkdir ${SINGULARITY_ROOTFS}/TP
+touch ${SINGULARITY_ROOTFS}/TP
 
 %files
 
 %labels
-    Maintainer Wilfried DAUNIQUE#Verminkin
-    Version v1.0
+Maintainer Wilfried DAUNIQUE#Verminkin
+Version v1.0
 
 %environment
-    STABLE=True
+STABLE=True
 %post
-    # Set time zone. Use whatever you prefer instead of UTC.
-    ln -s /usr/share/zoneinfo/UTC /etc/localtime
-    echo 'LANG=en_US.UTF-8' > /etc/locale.conf
-    echo "update"
-    apt-get -y update && apt-get -y install wget build-essential
-    apt full-upgrade -y
-    echo "update done"
-    echo "java jre + jdk"
-    apt install -y default-jre
-    apt install -y default-jdk
-    #add-apt-repository ppa:webupd8team/java
-    #apt-get -y update
-    echo "java done"
-    echo "Vim "
-    apt-get -y install vim
-    echo "Vim done"
-    echo "netEmul"
-    apt-get install -y netemul
-    echo "netEmul done"
-    #echo "GNS3"
-    #add-apt-repository ppa:gns3/ppa
-    #sudo apt -y update
-    #echo "GNS3 done"
-    echo"clean"
-    apt-get clean
-    echo"all update/install done"
+# Set time zone. Use whatever you prefer instead of UTC.
+ln -s /usr/share/zoneinfo/UTC /etc/localtime
+echo 'LANG=en_US.UTF-8' >/etc/locale.conf
+echo "update"
+apt-get -y update && apt-get -y install wget build-essential
+apt full-upgrade -y
+echo "update done"
+echo "java jre + jdk"
+apt install -y default-jre
+apt install -y default-jdk
+#add-apt-repository ppa:webupd8team/java
+#apt-get -y update
+echo "java done"
+apt-get -y install wireshark
+dpkg-reconfigure wireshark-common
+usermod -a -G wireshark $USER
+gnome-session-quit --logout --no-prompt
+echo "Vim "
+apt-get -y install vim
+echo "Vim done"
+#echo "netEmul"
+#apt-get install -y netemul
+#echo "netEmul done"
+#echo "GNS3"
+#add-apt-repository ppa:gns3/ppa
+#sudo apt -y update
+#echo "GNS3 done"
+echo"clean"
+apt-get clean
+echo"all update/install done"
 
 %runscript
-    echo "install done"
-    echo "Arguments received: $*"
-    exec echo "$@"
+echo "install done"
+echo "Arguments received: $*"
+exec echo "$@"
