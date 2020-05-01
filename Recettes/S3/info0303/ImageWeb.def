@@ -1,0 +1,96 @@
+BootStrap: docker
+From: ubuntu:latest
+
+%help
+Help me. Im in the container.
+
+%setup
+
+mkdir ${SINGULARITY_ROOTFS}/TP
+touch ${SINGULARITY_ROOTFS}/TP
+
+%files
+
+%labels
+Maintainer Wilfried DAUNIQUE#Verminkin
+Version v1.0
+
+%environment
+STABLE=True
+%post
+# Set time zone. Use whatever you prefer instead of UTC.
+ln -s /usr/share/zoneinfo/UTC /etc/localtime
+echo 'LANG=en_US.UTF-8' >/etc/locale.conf
+echo "update"
+apt-get -y update
+apt full-upgrade -y
+echo "update done"
+#echo "java jre + jdk"
+#apt install -y default-jre
+#apt install -y default-jdk
+#add-apt-repository ppa:webupd8team/java
+#apt-get -y update
+#echo "java done"
+#echo " reseau "
+#echo "net tools"
+#apt-get install -y net-tools
+#echo "traceroute"
+#apt-get -y install traceroute
+#echo "dig"
+#yes | apt-get -y install dnsutils
+#echo "telnet+nslookup"
+#yes | apt-get -y install telnetd
+#echo "scp"
+#yes | apt-get install openssh-client
+#echo "nmap"
+#yes | apt-get -y install nmap
+#yes Y|apt-get -y --force install wireshark && echo yes
+#dpkg-reconfigure --force wireshark-common
+#groupadd -g wireshark
+#usermod -a -G wireshark $USER
+#chgrp wireshark /usr/bin/dumpcap
+#chmod 4750 /usr/bin/dumpcap
+#gnome-session-quit --logout --no-prompt
+#apt-get install -y tcpdump
+#echo "reseau done"
+#echo "C/C++"
+#apt-get -y install gcc
+#apt-get -y install wget build-essential
+#apt-get -y install cmake
+#echo "C/C++ done"
+#echo " R install"
+#apt-get -y install r-base
+echo "appache"
+apt-get -y install apache2
+apt-get -y install ufw
+ufw app list
+ufw app info "Apache Full"
+echo "sql"
+apt-get -y install curl
+apt-get -y install mysql-server
+echo "sql"
+echo "php"
+apt-get -y install php libapache2-mod-php php-mysql
+echo "phpdone"
+echo "appache done"
+echo "done"
+echo "Vim "
+apt-get -y install vim
+echo "Vim done"
+#echo "netEmul"
+#apt-get install -y netemul
+#echo "netEmul done"
+#echo "GNS3"
+#add-apt-repository ppa:gns3/ppa
+#sudo apt -y update
+#echo "GNS3 done"
+echo "clean"
+apt-get clean
+echo "all update/install done"
+
+%runscript
+echo "install done"
+echo "Arguments received: $*"
+systemctl restart apache2
+#-i R
+exec echo "$@"
