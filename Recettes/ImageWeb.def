@@ -61,7 +61,17 @@ echo "update done"
 #echo " R install"
 #apt-get -y install r-base
 echo "appache"
-apt-get  -y install apache2
+apt-get -y install apache2
+apt-get -y install ufw
+ufw app list
+ufw app info "Apache Full"
+echo "sql"
+apt-get -y install curl
+apt-get -y install mysql-server
+echo "sql"
+echo "php"
+apt-get -y install php libapache2-mod-php php-mysql
+echo "phpdone"
 echo "appache done"
 echo "done"
 echo "Vim "
@@ -81,5 +91,6 @@ echo "all update/install done"
 %runscript
 echo "install done"
 echo "Arguments received: $*"
+systemctl restart apache2
 #-i R
 exec echo "$@"
