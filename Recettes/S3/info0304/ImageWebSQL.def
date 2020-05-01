@@ -96,7 +96,7 @@ echo "install done"
 echo "Arguments received: $*"
 ufw enable
 ufw allow apache2
- ufw allow mysql
+ufw allow mysql
 systemctl restart apache2
 systemctl start mysql
 systemctl enable mysql

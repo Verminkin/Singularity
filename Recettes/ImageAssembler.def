@@ -60,23 +60,30 @@ echo "update done"
 #echo "C/C++ done"
 #echo " R install"
 #apt-get -y install r-base
-echo "appache"
-apt-get -y install apache2
-apt-get -y install ufw
-ufw app list
-ufw app info "Apache Full"
-echo "sql"
-apt-get -y install curl
-apt-get -y install mysql-server
-echo "sql"
-echo "php"
-apt-get -y install php libapache2-mod-php php-mysql
-echo "phpdone"
-echo "appache done"
-echo "SQL"
-apt-get -y install mysql-server
-echo "SQL DONE"
-echo "done"
+#echo "appache"
+#apt-get -y install apache2
+#apt-get -y install ufw
+#ufw app list
+#ufw app info "Apache Full"
+#echo "sql"
+#apt-get -y install curl
+#apt-get -y install mysql-server
+#echo "sql"
+#echo "php"
+#apt-get -y install php libapache2-mod-php php-mysql
+#echo "phpdone"
+#echo "appache done"
+#echo "SQL"
+#apt-get -y install mysql-server
+#echo "SQL DONE"
+#echo "done"
+#echo "scilab"
+#apt-get -y install scilab
+#echo "scilab done"
+echo "assembler"
+apt-get -y install binutils
+apt-get install build-essential
+echo "assembler done"
 echo "Vim "
 apt-get -y install vim
 echo "Vim done"
@@ -94,12 +101,12 @@ echo "all update/install done"
 %runscript
 echo "install done"
 echo "Arguments received: $*"
-ufw enable
-ufw allow apache2
-ufw allow mysql
-systemctl restart apache2
-systemctl start mysql
-systemctl enable mysql
-systemctl enable apache2
+#ufw enable
+#ufw allow apache2
+# ufw allow mysql
+#systemctl restart apache2
+#systemctl start mysql
+#systemctl enable mysql
+#systemctl enable apache2
 #-i R
 exec echo "$@"
