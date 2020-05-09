@@ -21,7 +21,7 @@ void fenetre_initialiser(fenetre_t *fenetre, int tailleX, int tailleY, int coord
 void ncurses_couleurs();
 void ncurses_souris();
 int souris_getpos(int *x, int *y, int *bouton);
-void affiche_selection(fenetre_t *fenetre);
+void affiche_selection(fenetre_t *fenetre, int isAssembleur, int isC, int isJava, int isR, int isReseau, int isScilab, int isWeb, int isWebsql);
 void affiche_options(fenetre_t *fenetre, int isNcurses, int isPthread);
 void affiche_build(fenetre_t *fenetre);
 

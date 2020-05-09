@@ -70,25 +70,63 @@ int souris_getpos(int *x, int *y, int *bouton) {
   return resultat;
 }
 
-void affiche_selection(fenetre_t *fenetre){
-  wattron(fenetre->sf, COLOR_PAIR(DESELECT));
-  wmove(fenetre->sf, 0,0);
-  wprintw(fenetre->sf, "Assembleur-------");
-  wmove(fenetre->sf, 1,0);
-  wprintw(fenetre->sf, "C/C++------------");
-  wmove(fenetre->sf, 2,0);
-  wprintw(fenetre->sf, "Java-------------");
-  wmove(fenetre->sf, 3,0);
-  wprintw(fenetre->sf, "R----------------");
-  wmove(fenetre->sf, 4,0);
-  wprintw(fenetre->sf, "Réseau-----------");
-  wmove(fenetre->sf, 5,0);
-  wprintw(fenetre->sf, "Scilab-----------");
-  wmove(fenetre->sf, 6,0);
-  wprintw(fenetre->sf, "Web--------------");
-  wmove(fenetre->sf, 7,0);
-  wprintw(fenetre->sf, "Web + SQL--------");
-  wattroff(fenetre->sf, COLOR_PAIR(DESELECT));
+void affiche_selection(fenetre_t *fenetre, int isAssembleur, int isC, int isJava, int isR, int isReseau, int isScilab, int isWeb, int isWebsql){
+  if(isAssembleur == FAUX) wattron(fenetre->sf, COLOR_PAIR(DESELECT));
+  if(isAssembleur == VRAI) wattron(fenetre->sf, COLOR_PAIR(SELECT));
+    wmove(fenetre->sf, 0,0);
+    wprintw(fenetre->sf, "Assembleur-------");
+  if(isAssembleur == FAUX) wattroff(fenetre->sf, COLOR_PAIR(DESELECT));
+  if(isAssembleur == VRAI) wattroff(fenetre->sf, COLOR_PAIR(SELECT));
+
+  if(isC == FAUX) wattron(fenetre->sf, COLOR_PAIR(DESELECT));
+  if(isC == VRAI) wattron(fenetre->sf, COLOR_PAIR(SELECT));
+    wmove(fenetre->sf, 1,0);
+    wprintw(fenetre->sf, "C/C++------------");
+  if(isC == FAUX) wattroff(fenetre->sf, COLOR_PAIR(DESELECT));
+  if(isC == VRAI) wattroff(fenetre->sf, COLOR_PAIR(SELECT));
+
+  if(isJava == FAUX) wattron(fenetre->sf, COLOR_PAIR(DESELECT));
+  if(isJava == VRAI) wattron(fenetre->sf, COLOR_PAIR(SELECT));
+    wmove(fenetre->sf, 2,0);
+    wprintw(fenetre->sf, "Java-------------");
+  if(isJava == FAUX) wattroff(fenetre->sf, COLOR_PAIR(DESELECT));
+  if(isJava == VRAI) wattroff(fenetre->sf, COLOR_PAIR(SELECT));
+
+  if(isR == FAUX) wattron(fenetre->sf, COLOR_PAIR(DESELECT));
+  if(isR == VRAI) wattron(fenetre->sf, COLOR_PAIR(SELECT));
+    wmove(fenetre->sf, 3,0);
+    wprintw(fenetre->sf, "R----------------");
+  if(isR == FAUX) wattroff(fenetre->sf, COLOR_PAIR(DESELECT));
+  if(isR == VRAI) wattroff(fenetre->sf, COLOR_PAIR(SELECT));
+
+  if(isReseau == FAUX) wattron(fenetre->sf, COLOR_PAIR(DESELECT));
+  if(isReseau == VRAI) wattron(fenetre->sf, COLOR_PAIR(SELECT));
+    wmove(fenetre->sf, 4,0);
+    wprintw(fenetre->sf, "Réseau-----------");
+  if(isReseau == FAUX) wattroff(fenetre->sf, COLOR_PAIR(DESELECT));
+  if(isReseau == VRAI) wattroff(fenetre->sf, COLOR_PAIR(SELECT));
+
+  if(isScilab == FAUX) wattron(fenetre->sf, COLOR_PAIR(DESELECT));
+  if(isScilab == VRAI) wattron(fenetre->sf, COLOR_PAIR(SELECT));
+    wmove(fenetre->sf, 5,0);
+    wprintw(fenetre->sf, "Scilab-----------");
+  if(isScilab == FAUX) wattroff(fenetre->sf, COLOR_PAIR(DESELECT));
+  if(isScilab == VRAI) wattroff(fenetre->sf, COLOR_PAIR(SELECT));
+
+  if(isWeb == FAUX) wattron(fenetre->sf, COLOR_PAIR(DESELECT));
+  if(isWeb == VRAI) wattron(fenetre->sf, COLOR_PAIR(SELECT));
+    wmove(fenetre->sf, 6,0);
+    wprintw(fenetre->sf, "Web--------------");
+  if(isWeb == FAUX) wattroff(fenetre->sf, COLOR_PAIR(DESELECT));
+  if(isWeb == VRAI) wattroff(fenetre->sf, COLOR_PAIR(SELECT));
+
+  if(isWebsql == FAUX) wattron(fenetre->sf, COLOR_PAIR(DESELECT));
+  if(isWebsql == VRAI) wattron(fenetre->sf, COLOR_PAIR(SELECT));
+    wmove(fenetre->sf, 7,0);
+    wprintw(fenetre->sf, "Web + SQL--------");
+  if(isWebsql == FAUX) wattroff(fenetre->sf, COLOR_PAIR(DESELECT));
+  if(isWebsql == VRAI) wattroff(fenetre->sf, COLOR_PAIR(SELECT));
+
   wrefresh(fenetre->sf);
 }
 
