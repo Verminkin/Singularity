@@ -1,0 +1,6 @@
+echo "scilab"
+apt-get -y install scilab
+echo "scilab done"
+echo "Vim "
+apt-get -y install vim
+echo "Vim done"

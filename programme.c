@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <regex.h>
+#include <string.h>
 
 interface_t interface;
 
@@ -26,7 +27,8 @@ int main(int argc, char** argv){
   int isNcurses;
   int isPthread;
   int isBuild;
-  char* filename;
+  char* filename_def;
+  char* filename_simg;
   int err;
   int match;
   regex_t regex;
@@ -35,10 +37,12 @@ int main(int argc, char** argv){
 
 
   /*vérification des arguments*/
+  /*vérification du nombre d'arguments*/
   if(argc!=2){
     fprintf(stderr, "Erreur: Nombre d'arguments incorrect\n");
     exit(EXIT_FAILURE);
   }
+  /*vérification de la validité du nom spécifié en arguments*/
   param = argv[1];
   str_regex = "^[a-zA-Z]+$";
   err = regcomp(&regex, str_regex, REG_NOSUB | REG_EXTENDED);
@@ -46,7 +50,11 @@ int main(int argc, char** argv){
     match = regexec(&regex, param, 0, NULL, 0);
     regfree(&regex);
     if(match==0){
-      filename = argv[1];
+      filename_def = argv[1];
+      filename_simg=(char*)malloc(strlen(argv[1])+7);
+      strcpy(filename_simg, argv[1]);
+      strcat(filename_def, ".def");
+      strcat(filename_simg, ".simg");
     }
     else if(match == REG_NOMATCH){
       fprintf(stderr, "Erreur: Le nom de fichier spécifié n'est pas valide\n");
@@ -115,7 +123,11 @@ int main(int argc, char** argv){
     affiche_build(&interface.build);
   }
   ncurses_stopper();
-  printf("%s\n", filename);
-  printf("\n");
+  printf("%s\n", filename_def);
+  printf("%s\n", filename_simg);
+  if(isBuild == VRAI){
+      build_def(filename_def, isAssembleur, isC, isNcurses, isPthread, isJava, isR, isReseau, isScilab, isWeb, isWebsql);
+  }
+  free(filename_simg);
   return EXIT_SUCCESS;
 }

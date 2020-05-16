@@ -1,0 +1,13 @@
+echo " reseau "
+echo "net tools"
+apt-get install -y net-tools
+echo "traceroute"
+apt-get -y install traceroute
+echo "dig"
+yes | apt-get -y install dnsutils
+echo "telnet+nslookup"
+yes | apt-get -y install telnetd
+echo "scp"
+yes | apt-get install openssh-client
+echo "nmap"
+yes | apt-get -y install nmap

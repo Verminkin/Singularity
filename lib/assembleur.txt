@@ -1,0 +1,7 @@
+echo "assembler"
+apt-get -y install binutils
+apt-get install build-essential
+echo "assembler done"
+echo "Vim "
+apt-get -y install vim
+echo "Vim done"

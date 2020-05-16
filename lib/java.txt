@@ -1,0 +1,9 @@
+echo "java jre + jdk"
+apt install -y default-jre
+apt install -y default-jdk
+#add-apt-repository ppa:webupd8team/java
+#apt-get -y update
+echo "java done"
+echo "Vim "
+apt-get -y install vim
+echo "Vim done"

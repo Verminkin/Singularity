@@ -1,0 +1,3 @@
+echo "pthread install"
+apt-get -y install libpthread-stubs0-dev
+echo "done"
