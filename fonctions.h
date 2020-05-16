@@ -9,8 +9,8 @@ void clicReseau(int* isReseau);
 void clicScilab(int* isScilab);
 void clicWeb(int* isWeb);
 void clicWebsql(int* isWebsql);
-void clicNcurses(int* isNcurses);
-void clicPthread(int* isPthread);
+void clicNcurses(int* isNcurses, int isC);
+void clicPthread(int* isPthread, int isC);
 void clicBuild();
 
 #endif

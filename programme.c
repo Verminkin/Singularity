@@ -3,6 +3,8 @@
 #include "constantes.h"
 #include <ncurses.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <regex.h>
 
 interface_t interface;
 
@@ -24,6 +26,38 @@ int main(int argc, char** argv){
   int isNcurses;
   int isPthread;
   int isBuild;
+  char* filename;
+  int err;
+  int match;
+  regex_t regex;
+  const char* param;
+  const char* str_regex;
+
+
+  /*vérification des arguments*/
+  if(argc!=2){
+    fprintf(stderr, "Erreur: Nombre d'arguments incorrect\n");
+    exit(EXIT_FAILURE);
+  }
+  param = argv[1];
+  str_regex = "^[a-zA-Z]+$";
+  err = regcomp(&regex, str_regex, REG_NOSUB | REG_EXTENDED);
+  if(err==0){
+    match = regexec(&regex, param, 0, NULL, 0);
+    regfree(&regex);
+    if(match==0){
+      filename = argv[1];
+    }
+    else if(match == REG_NOMATCH){
+      fprintf(stderr, "Erreur: Le nom de fichier spécifié n'est pas valide\n");
+      exit(EXIT_FAILURE);
+    }
+  }
+  else if(err!=0){
+    fprintf(stderr, "Erreur: une erreur s'est produite lors de la compilation de l'expression régulière\n");
+    exit(EXIT_FAILURE);
+  }
+
 
   /*initialisations*/
   isAssembleur = FAUX;
@@ -67,9 +101,9 @@ int main(int argc, char** argv){
             /*clic sur Assembleur*/
             if(ySouris==8 && xSouris>=1 && xSouris<=19) clicWebsql(&isWebsql);
             /*clic sur ncurses*/
-            if(ySouris==1 && xSouris>=22 && xSouris<=40) clicNcurses(&isNcurses);
+            if(ySouris==1 && xSouris>=22 && xSouris<=40) clicNcurses(&isNcurses, isC);
             /*clic sur pthread*/
-            if(ySouris==2 && xSouris>=22 && xSouris<=40) clicPthread(&isPthread);
+            if(ySouris==2 && xSouris>=22 && xSouris<=40) clicPthread(&isPthread, isC);
             /*clic sur build*/
             if(ySouris==7 && xSouris>=22 && xSouris<=40) isBuild = VRAI;
           }
@@ -81,5 +115,7 @@ int main(int argc, char** argv){
     affiche_build(&interface.build);
   }
   ncurses_stopper();
+  printf("%s\n", filename);
+  printf("\n");
   return EXIT_SUCCESS;
 }
