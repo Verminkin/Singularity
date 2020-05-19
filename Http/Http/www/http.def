@@ -2,6 +2,7 @@ BootStrap: docker
 From:httpd:latest
 
 %help
+
 Help me. Im in the container.
 Apache2 web server running in a Singularity Container.
 
@@ -16,7 +17,7 @@ usage:
     $ touch httpd/index.html  # this is your html file.
 
   starting the instance:
-  $ singularity instance start -B httpd/:/srv/httpd/ httpd.sif httpd #to start the web server
+  $ singularity instance start -B www/:/srv/www/ http.sif www #to start the web server
 
   stoping the instance:
   $ singularity instance stop httpd
@@ -41,23 +42,24 @@ sed -ie "s/^\(Listen\).*/\1 8080/" /usr/local/apache2/conf/httpd.conf
 sed -ie "s/\#ServerName\ www.example.com:80/ServerName\ localhost/" /usr/local/apache2/conf/httpd.conf
 
 # replace the stock locations with symlinks to our bind point
-mkdir -p /srv/httpd/htdocs /srv/httpd/logs
+mkdir -p /srv/httpd/htdocs /srv/www/logs
 
 rm -rf /usr/local/apache2/htdocs/
-ln -s /srv/httpd/htdocs/ /usr/local/apache2/htdocs
+ln -s /srv/www/htdocs/ /usr/local/apache2/htdocs
 
 rm -rf /usr/local/apache2/logs
-ln -s /srv/httpd/logs/ /usr/local/apache2/logs
+ln -s /srv/www/logs/ /usr/local/apache2/logs
 
 
 
 
 %runscript
-
+# print help menu
+cat /.singularity.d/runscript.help
 echo "install done"
 echo "Arguments received: $*"
 exec echo "$@"
 
 %startscript
-http
-singularity instance start -B www/:/srv/www/ http.sif www
+httpd
+
