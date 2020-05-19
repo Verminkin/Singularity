@@ -1,0 +1,63 @@
+BootStrap: docker
+From:httpd:latest
+
+%help
+Help me. Im in the container.
+Apache2 web server running in a Singularity Container.
+
+usage:
+   #httpd is an apache2 container
+  setup:
+    Need
+  http
+        ->www
+  then this container will do this
+    $ mkdir -p www/logs
+    $ touch httpd/index.html  # this is your html file.
+
+  starting the instance:
+  $ singularity instance start -B httpd/:/srv/httpd/ httpd.sif httpd #to start the web server
+
+  stoping the instance:
+  $ singularity instance stop httpd
+
+%setup
+mkdir -p www/logs
+mkdir -p www/htdocs
+touch www/htdocs/index.html
+
+%files
+
+%labels
+Maintainer Wilfried DAUNIQUE#Verminkin
+Version v1.0
+
+%environment
+STABLE=True
+%post
+
+# change the port 8080
+sed -ie "s/^\(Listen\).*/\1 8080/" /usr/local/apache2/conf/httpd.conf
+sed -ie "s/\#ServerName\ www.example.com:80/ServerName\ localhost/" /usr/local/apache2/conf/httpd.conf
+
+# replace the stock locations with symlinks to our bind point
+mkdir -p /srv/httpd/htdocs /srv/httpd/logs
+
+rm -rf /usr/local/apache2/htdocs/
+ln -s /srv/httpd/htdocs/ /usr/local/apache2/htdocs
+
+rm -rf /usr/local/apache2/logs
+ln -s /srv/httpd/logs/ /usr/local/apache2/logs
+
+
+
+
+%runscript
+
+echo "install done"
+echo "Arguments received: $*"
+exec echo "$@"
+
+%startscript
+http
+singularity instance start -B www/:/srv/www/ http.sif www
