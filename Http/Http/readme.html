@@ -74,18 +74,17 @@ quand il est vide) remplacer le des que possible
 
     <br>### Lancement du serveur:
 
-    <br>Pour cette partie il faut bind ton dossier www au conteneur pour qu'il sache comment faire si tu as bien tous
-    suivit avant tous fonctionne:
+    <br>Pour cette partie il faut bind le dossier www au conteneur :
 
     <br>```
     <br>$ singularity instance start -B www/:/srv/www/ 'nom du conteneur'.sif 'nom de l'instance '
     <br>en modifiant le code tu pourais avoir plusieurs instance il suffit de changer le port dans le fichier.def sinon
-    le nom de l'instance est libre si tu veux l'appeler toto libre à toi
+    le nom de l'instance est libre
     <br>```
 
     <br>
 
-    <br>Dès que toutes les actions précédentes sont réalisé tu n'as plus qu'a lancer une page web au adresses suivantes
+    <br>lancer une page web à l'adresse d
     <br>http://localhost:8080
 
     <br>ou:
@@ -94,12 +93,11 @@ quand il est vide) remplacer le des que possible
     <br>```
 
 
-    <br>## Stopping the instance:
+    <br>## Arreter le serveur :
 
-    <br>To stop the instance, run this command:
 
     <br>```
-    <br>$ singularity instance stop httpd
+    <br>$ singularity instance stop www
     <br>```
 
 

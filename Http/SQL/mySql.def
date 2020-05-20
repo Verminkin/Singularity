@@ -1,0 +1,87 @@
+Bootstrap: docker
+From: mysql:5.7.21
+
+%help
+MariaDB (MySQL) server.
+Documentation: https://www.hpc.iastate.edu/guides/containers/mysql-server
+ mkdir -p ${PWD}/mysql/var/lib/mysql ${PWD}/mysql/run/mysqld
+ singularity instance start  -B ${HOME} \
+                                 -B ${PWD}/mysql/var/lib/mysql/:/var/lib/mysql \
+                                 -B ${PWD}/mysql/run/mysqld:/run/mysqld \
+                                 ./mySql.sif mySql
+
+singularity run instance://mysql create_remote_admin_user.sh
+
+%labels
+
+
+    MAINTAINER DAUNIQUE WILFRIED
+    VERSION  v1.0
+
+
+%setup
+    mkdir -p ${PWD}/mysql/var/lib/mysql ${PWD}/mysql/run/mysqld
+    mkdir -p conf
+    touch conf/my.cnf
+    touch conf/mysqlrootpw
+    touch conf/create_remote_admin_user.sh
+
+
+%files
+    conf/my.cnf
+    conf/my.cnf /my.cnf
+
+    conf/mysqlrootpw
+    conf/mysqlrootpw /mysqlrootpw
+    conf/create_remote_admin_user.sh
+    conf/create_remote_admin_user.sh /usr/local/bin/create_remote_admin_user.sh
+
+
+%post
+    chmod +x /usr/local/bin/create_remote_admin_user.sh
+    chmod -R 755 /var/lib/mysql/
+    chmod -R 755  /etc/mysql/my.cnf
+    cp /my.cnf /etc/mysql/my.cnf
+
+
+%runscript
+     Check that mysql directory is writeable.  If not, inform user of documentation and exit.
+    touch /var/lib/mysql/write_test
+    if [ ! -f /var/lib/mysql/write_test ]
+    then
+      echo '/var/lib/mysql is not writable.  Please see https://www.hpc.iastate.edu/guides/containers/mysql-server'
+       echo 'for instructions on bind-mounting host directories into this container.'
+       exit 1
+    fi
+    rm -f /var/lib/mysql/write_test
+
+    # Check for .my.cnf, and use default if necessary
+    if [ ! -f ${HOME}/.my.cnf ]
+    then
+        echo "Copying my.cnf to ${HOME}"
+        cp /my.cnf ${HOME}/.my.cnf
+        cp /my.cnf ${HOME}/etc/mysql/my.cnf
+    else
+        echo "${HOME}/.my.cnf already exists.  Using that version."
+    fi
+
+    # Check for .mysqlrootpw, and use default if necessary
+    if [ ! -f ${HOME}/.mysqlrootpw ]
+    then
+        echo "Copying mysqlrootpw to ${HOME}"
+        cp /mysqlrootpw ${HOME}/.mysqlrootpw
+    else
+        echo "${HOME}/.mysqlrootpw already exists.  Using that version."
+    fi
+
+    # Check for initialization
+    if [ ! -d /var/lib/mysql/mysql ]
+    then
+        echo "Initializing mysqld"
+        mysqld --initialize --user=root --init-file=${HOME}/.mysqlrootpw
+    fi
+
+    # Finally, launch mysqld
+    echo ""
+    echo "Start mysqld"
+    mysqld  --user=root --init-file=${HOME}/.mysqlrootpw
