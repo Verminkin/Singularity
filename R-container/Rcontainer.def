@@ -1,0 +1,35 @@
+BootStrap: docker
+From: ubuntu:latest
+
+%help
+Help me. Im in the container.
+
+%setup
+
+mkdir ${SINGULARITY_ROOTFS}/TP
+touch ${SINGULARITY_ROOTFS}/TP
+
+%files
+
+%labels
+Maintainer Wilfried DAUNIQUE#Verminkin
+Version v1.0
+
+%environment
+STABLE=True
+%post
+ln -s /usr/share/zoneinfo/UTC /etc/localtime
+echo 'LANG=en_US.UTF-8' >/etc/locale.conf
+echo "update"
+apt-get -y update
+apt full-upgrade -y
+echo "update done"
+echo "R install"
+apt-get -y install r-base
+echo "done"
+echo "Vim "
+apt-get -y install vim
+echo "Vim done"
+echo "clean"
+apt-get clean
+echo "all update/install done"

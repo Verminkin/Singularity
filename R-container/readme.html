@@ -1,0 +1,34 @@
+<html>
+
+<h1>#Container langage R</h1>
+
+<body>
+  <h2>#Setup</h2>
+  <br>
+  Pour créer le conteneur, deux options :
+  <br>
+  -Par le fichier de recette : sudo singularity build Rcontainer.simg Rcontainer.def
+  <br>
+  -Par un pull depuis dockerhub (link)
+  <br>
+  <h2>#Test du conteneur</h2>
+  Tout d'abord, il faut lancer un terminal au sein du conteneur à l'aide de la commande : singularity shell Rcontainer.simg
+  <br>
+  <br>
+  Ensuite, il faut créer le fichier test.r à l'aide de la commande : vim test.r
+  <br>
+  <br>
+  Dans ce fichier, écrire la commande : message("test")
+  <br>
+  <br>
+  Une fois le fichier écrit et enregistré, éxécuter la commande : Rscript test.r
+  <br>
+  <br>
+  Alternativement, vous pouvez lancer le terminal R en appelant la commande R (en majuscule). Une fois dans ce terminal, vous avez accès à toutes les commandes standards du R. Pour quitter ce terminal, utilisez la commande q() 
+  <br>
+  <br>
+  Pour quitter le terminal Singularity, éxécuter la commande : exit
+</body>
+
+</html>
+
