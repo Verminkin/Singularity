@@ -1,0 +1,61 @@
+<html>
+
+<h1>#Container C/C++ (plus librairies Ncurses et Pthread)</h1>
+
+<body>
+  <h2>#Setup</h2>
+  <br>
+  Pour créer le conteneur, deux options :
+  <br>
+  -Par le fichier de recette : sudo singularity build Ccontainer.simg Ccontainer.def
+  <br>
+  -Par un pull depuis dockerhub (link)
+  <br>
+  <h2>#Test du conteneur</h2>
+  <br>
+  Une fois le conteneur créé, il faut vérifier son fonctionnement.
+  <br>
+  Tout d'abord il faut créer un terminal dans notre conteneur à l'aide de la commande suivante : singularity shell Ccontainer.simg
+  <br>
+  <br>
+  Ensuite, il faut créer un fichier main.c qui contiendra le code de test. Pour cela : vim main.c
+  <br>
+  Dans ce fichier, ajouter le code suivant :
+  <br>
+  <q>
+    #include &lt;stdio.h&gt;
+    <br>
+    int main(){
+    <br>
+  	printf("test\n");
+    <br>
+  	return 0;
+    <br>
+    }
+  </q>
+  <br>
+  <br>
+  Ensuite, il faut créer un makefile : vim makefile
+  <br>
+  Dans ce makefile, ajouter le code suivant :
+  <br>
+  <q>
+    all:
+    <br>
+    gcc -o main main.c
+  </q>
+  <br>
+  <br>
+  Une fois le makefile écrit et enregistré, éxécuter la commande : make all
+  <br>
+  <br>
+  Ensuite, éxécuter le programme compiler en rentrant la commande : ./main
+  <br>
+  <br>
+  Si tout s'est bien déroulé, le terminal devrait afficher "test".
+  <br>
+  <br>
+  Pour quitter le terminal Singularity, éxécuter la commande : exit
+</body>
+
+</html>
