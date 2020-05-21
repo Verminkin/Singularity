@@ -5,12 +5,43 @@ From: mysql:5.7.21
 MariaDB (MySQL) server.
 Documentation: https://www.hpc.iastate.edu/guides/containers/mysql-server
  mkdir -p ${PWD}/mysql/var/lib/mysql ${PWD}/mysql/run/mysqld
+
+ Avant de start le conteneur merci de remplir my.cnf et mysqlrootpw
+
+    my.cnf example:
+
+    [mysqld]
+    innodb_use_native_aio=0
+    init-file=${HOME}/.mysqlrootpw
+    user            = root
+    pid-file        = /var/run/mysqld/mysqld.pid
+    socket          = /var/run/mysqld/mysqld.sock
+    port            = 3306
+    basedir         = /usr
+    datadir         = /var/lib/mysql
+    tmpdir          = /tmp
+    bind-address    = 127.0.0.1
+    [client]
+    user=root
+    password='kek'
+    explicit_defaults_for_timestamp = 1
+    port             = %PORT%                              # default 3306
+    socket           = %SOCKET%                            # Use mysqld.sock on Ubuntu, conflicts with AppArmor otherwise
+
+   mysqlrootpw example :
+
+   SET PASSWORD FOR 'root'@'localhost' = PASSWORD('kek');
+
  singularity instance start  -B ${HOME} \
                                  -B ${PWD}/mysql/var/lib/mysql/:/var/lib/mysql \
                                  -B ${PWD}/mysql/run/mysqld:/run/mysqld \
                                  ./mySql.sif mySql
 
-singularity run instance://mysql create_remote_admin_user.sh
+singularity run instance://mysql create_remote_admin_user.sh (important de mettre create_remote_admin_user.sh sinon on y a pas accès)
+ pour se connecter
+ sur l'hote: mysql - u root - p
+ Configuration dans le my.cnf
+ Pour l'instant il faut le build en sandbox le my.cnf de ce chemin cp /my.cnf ${HOME}/etc/mysql/my.cnf ne veut pas se faire remplacer par le cnf que vous devez remplir
 
 %labels
 
