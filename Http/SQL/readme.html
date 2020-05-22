@@ -17,15 +17,15 @@ Documentation: https://www.hpc.iastate.edu/guides/containers/mysql-server
 ## Setup:
 <br>
 <h3>BUILD</h3>
-commande pour le le serveur à rentrer successivement
-singularity build --sandbox mysql.sif mysql.def
+commande pour le le serveur à rentrer successivement lire tout le read me pour bien configurer le serveur
+singularity build --sandbox mysql.sif mySql.def
 <br>
 ```<br>
 <h3>BIND et instanciation</h3>
 singularity instance start  -B ${HOME} \
 -B ${PWD}/mysql/var/lib/mysql/:/var/lib/mysql \
 -B ${PWD}/mysql/run/mysqld:/run/mysqld \
-./mySql.sif mySql
+./mysql.sif mySql
 <br>
 <h3>LANCEMENT</h3>
 singularity run instance://mysql create_remote_admin_user.sh
@@ -52,7 +52,8 @@ singularity run instance://mysql create_remote_admin_user.sh
 
     <br>### Lancement du serveur:
 
-    <br> Avant de start le conteneur merci de remplir my.cnf et mysqlrootpw
+    <br> Avant de start le conteneur merci de remplir my.cnf et mysqlrootp
+
 
 <br> my.cnf example:
 <br>
@@ -103,9 +104,10 @@ singularity run instance://mysql create_remote_admin_user.sh
     OU
     <br>
     rentrer en ligne de commande  dans votre hote (pas le conteneur)
-    <br>->mysql - u root - p
+    <br>-> mysql -h 127.0.0.1
 
-    <br>## Arreter le serveur :
+
+<br>## Arreter le serveur :
 
 
     <br>```

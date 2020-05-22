@@ -35,13 +35,13 @@ Documentation: https://www.hpc.iastate.edu/guides/containers/mysql-server
  singularity instance start  -B ${HOME} \
                                  -B ${PWD}/mysql/var/lib/mysql/:/var/lib/mysql \
                                  -B ${PWD}/mysql/run/mysqld:/run/mysqld \
-                                 ./mySql.sif mySql
+                                 ./mySql.sif mysql
 
 singularity run instance://mysql create_remote_admin_user.sh (important de mettre create_remote_admin_user.sh sinon on y a pas accès)
  pour se connecter
- sur l'hote: mysql - u root - p
+ sur l'hote:  mysql -h 127.0.0.1
+
  Configuration dans le my.cnf
- Pour l'instant il faut le build en sandbox le my.cnf de ce chemin cp /my.cnf ${HOME}/etc/mysql/my.cnf ne veut pas se faire remplacer par le cnf que vous devez remplir
 
 %labels
 
@@ -72,12 +72,14 @@ singularity run instance://mysql create_remote_admin_user.sh (important de mettr
     chmod +x /usr/local/bin/create_remote_admin_user.sh
     chmod -R 755 /var/lib/mysql/
     chmod -R 755  /etc/mysql/my.cnf
+    rm -rf  /etc/mysql/my.cnf
     cp /my.cnf /etc/mysql/my.cnf
 
 
 %runscript
      Check that mysql directory is writeable.  If not, inform user of documentation and exit.
     touch /var/lib/mysql/write_test
+      cp -rf -i /my.cnf ${HOME}/etc/mysql/my.cnf
     if [ ! -f /var/lib/mysql/write_test ]
     then
       echo '/var/lib/mysql is not writable.  Please see https://www.hpc.iastate.edu/guides/containers/mysql-server'
@@ -91,7 +93,7 @@ singularity run instance://mysql create_remote_admin_user.sh (important de mettr
     then
         echo "Copying my.cnf to ${HOME}"
         cp /my.cnf ${HOME}/.my.cnf
-        cp /my.cnf ${HOME}/etc/mysql/my.cnf
+
     else
         echo "${HOME}/.my.cnf already exists.  Using that version."
     fi
