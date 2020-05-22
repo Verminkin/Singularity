@@ -19,7 +19,7 @@ Version v1.0
 STABLE=True
 %post
 ln -s /usr/share/zoneinfo/UTC /etc/localtime
-echo 'LANG=en_US.UTF-8' >/etc/locale.conf
+echo 'LANG=fr_FR.UTF-8' >/etc/locale.conf
 echo "update"
 apt-get -y update
 apt full-upgrade -y

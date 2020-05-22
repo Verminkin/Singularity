@@ -22,10 +22,9 @@ int main(int argc, char** argv){
   int isR;
   int isReseau;
   int isScilab;
-  int isWeb;
-  int isWebsql;
   int isNcurses;
   int isPthread;
+  int isLexYacc;
   int isBuild;
   char* filename_def;
   char* filename_simg;
@@ -74,10 +73,9 @@ int main(int argc, char** argv){
   isR = FAUX;
   isReseau = FAUX;
   isScilab = FAUX;
-  isWeb = FAUX;
-  isWebsql = FAUX;
   isNcurses = FAUX;
   isPthread = FAUX;
+  isLexYacc = FAUX;
   isBuild = FAUX;
   ncurses_initialiser();
   interface_initialiser(&interface);
@@ -104,29 +102,27 @@ int main(int argc, char** argv){
             if(ySouris==5 && xSouris>=1 && xSouris<=19) clicReseau(&isReseau);
             /*clic sur scilab*/
             if(ySouris==6 && xSouris>=1 && xSouris<=19) clicScilab(&isScilab);
-            /*clic sur Assembleur*/
-            if(ySouris==7 && xSouris>=1 && xSouris<=19) clicWeb(&isWeb);
-            /*clic sur Assembleur*/
-            if(ySouris==8 && xSouris>=1 && xSouris<=19) clicWebsql(&isWebsql);
             /*clic sur ncurses*/
             if(ySouris==1 && xSouris>=22 && xSouris<=40) clicNcurses(&isNcurses, isC);
             /*clic sur pthread*/
             if(ySouris==2 && xSouris>=22 && xSouris<=40) clicPthread(&isPthread, isC);
+            /*clic sur Lex&Yacc*/
+            if(ySouris==3 && xSouris>=22 && xSouris<=40) clicLexYacc(&isLexYacc, isC);
             /*clic sur build*/
             if(ySouris==7 && xSouris>=22 && xSouris<=40) isBuild = VRAI;
           }
         }
         break;
     }
-    affiche_selection(&interface.selection, isAssembleur, isC, isJava, isR, isReseau, isScilab, isWeb, isWebsql);
-    affiche_options(&interface.options, isNcurses, isPthread);
+    affiche_selection(&interface.selection, isAssembleur, isC, isJava, isR, isReseau, isScilab);
+    affiche_options(&interface.options, isNcurses, isPthread, isLexYacc);
     affiche_build(&interface.build);
   }
   ncurses_stopper();
   printf("%s\n", filename_def);
   printf("%s\n", filename_simg);
   if(isBuild == VRAI){
-      build_def(filename_def, isAssembleur, isC, isNcurses, isPthread, isJava, isR, isReseau, isScilab, isWeb, isWebsql);
+      build_def(filename_def, isAssembleur, isC, isNcurses, isPthread, isLexYacc, isJava, isR, isReseau, isScilab);
   }
   free(filename_simg);
   return EXIT_SUCCESS;

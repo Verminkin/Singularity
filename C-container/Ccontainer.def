@@ -38,6 +38,10 @@ echo "done"
 echo "pthread install"
 apt-get -y install libpthread-stubs0-dev
 echo "done"
+echo "Install Flex & Bison"
+apt-get -y install flex bison
+echo "Install done"
+
 echo "clean"
 apt-get clean
 echo "all update/install done"

@@ -1,0 +1,4 @@
+echo "Install Flex & Bison"
+apt-get -y install flex bison
+echo "Install done"
+

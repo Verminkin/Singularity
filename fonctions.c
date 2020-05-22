@@ -97,21 +97,31 @@ void clicPthread(int* isPthread, int isC){
   }
 }
 
-void build_def(char* filename_def, int isAssembleur, int isC, int isNcurses, int isPthread, int isJava,
-  int isR, int isReseau, int isScilab, int isWeb, int isWebsql){
+void clicLexYacc(int* isLexYacc, int isC){
+  if(isC==VRAI){
+    if(*isLexYacc==VRAI){
+      *isLexYacc = FAUX;
+    }
+    else{
+      *isLexYacc = VRAI;
+    }
+  }
+}
+
+void build_def(char* filename_def, int isAssembleur, int isC, int isNcurses, int isPthread, int isLexYacc, int isJava,
+  int isR, int isReseau, int isScilab){
   FILE* def;
   FILE* assembleur;
   FILE* base;
   FILE* c;
   FILE* clean;
   FILE* java;
+  FILE* lexyacc;
   FILE* ncurses;
   FILE* pthread;
   FILE* r;
   FILE* reseau;
   FILE* scilab;
-  FILE* web;
-  FILE* websql;
   char ch;
 
   def = fopen(filename_def, "a");
@@ -165,6 +175,15 @@ void build_def(char* filename_def, int isAssembleur, int isC, int isNcurses, int
       while((ch=fgetc(pthread))!=EOF)fputc(ch, def);
       fclose(pthread);
     }
+    if(isLexYacc == VRAI){
+      lexyacc = fopen("./lib/lexyacc.txt", "r");
+      if(lexyacc==NULL){
+        fprintf(stderr, "Erreur: ouverture des fichiers impossible\n");
+        exit(EXIT_FAILURE);
+      }
+      while((ch=fgetc(lexyacc))!=EOF)fputc(ch, def);
+      fclose(lexyacc);
+    }
   }
 
   if(isJava == VRAI){
@@ -205,26 +224,6 @@ void build_def(char* filename_def, int isAssembleur, int isC, int isNcurses, int
     }
     while((ch=fgetc(scilab))!=EOF)fputc(ch, def);
     fclose(scilab);
-  }
-
-  if(isWeb == VRAI){
-    web = fopen("./lib/web.txt", "r");
-    if(web==NULL){
-      fprintf(stderr, "Erreur: ouverture des fichiers impossible\n");
-      exit(EXIT_FAILURE);
-    }
-    while((ch=fgetc(web))!=EOF)fputc(ch, def);
-    fclose(web);
-  }
-
-  if(isWebsql == VRAI){
-    websql = fopen("./lib/websql.txt", "r");
-    if(websql==NULL){
-      fprintf(stderr, "Erreur: ouverture des fichiers impossible\n");
-      exit(EXIT_FAILURE);
-    }
-    while((ch=fgetc(websql))!=EOF)fputc(ch, def);
-    fclose(websql);
   }
 
   clean = fopen("./lib/clean.txt", "r");

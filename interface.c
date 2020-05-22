@@ -18,8 +18,8 @@ void ncurses_stopper(){
 
 
 void interface_initialiser(interface_t *interface){
-  fenetre_initialiser(&interface->selection, 10, 20, 0, 0, "Sélection");
-  fenetre_initialiser(&interface->options, 5, 20, 0, 21, "Options");
+  fenetre_initialiser(&interface->selection, 8, 20, 0, 0, "Sélection");
+  fenetre_initialiser(&interface->options, 6, 20, 0, 21, "Options");
   fenetre_initialiser(&interface->build, 3, 20, 6, 21, "Build");
 }
 
@@ -70,7 +70,7 @@ int souris_getpos(int *x, int *y, int *bouton) {
   return resultat;
 }
 
-void affiche_selection(fenetre_t *fenetre, int isAssembleur, int isC, int isJava, int isR, int isReseau, int isScilab, int isWeb, int isWebsql){
+void affiche_selection(fenetre_t *fenetre, int isAssembleur, int isC, int isJava, int isR, int isReseau, int isScilab){
   if(isAssembleur == FAUX) wattron(fenetre->sf, COLOR_PAIR(DESELECT));
   if(isAssembleur == VRAI) wattron(fenetre->sf, COLOR_PAIR(SELECT));
     wmove(fenetre->sf, 0,0);
@@ -113,24 +113,10 @@ void affiche_selection(fenetre_t *fenetre, int isAssembleur, int isC, int isJava
   if(isScilab == FAUX) wattroff(fenetre->sf, COLOR_PAIR(DESELECT));
   if(isScilab == VRAI) wattroff(fenetre->sf, COLOR_PAIR(SELECT));
 
-  if(isWeb == FAUX) wattron(fenetre->sf, COLOR_PAIR(DESELECT));
-  if(isWeb == VRAI) wattron(fenetre->sf, COLOR_PAIR(SELECT));
-    wmove(fenetre->sf, 6,0);
-    wprintw(fenetre->sf, "Web--------------");
-  if(isWeb == FAUX) wattroff(fenetre->sf, COLOR_PAIR(DESELECT));
-  if(isWeb == VRAI) wattroff(fenetre->sf, COLOR_PAIR(SELECT));
-
-  if(isWebsql == FAUX) wattron(fenetre->sf, COLOR_PAIR(DESELECT));
-  if(isWebsql == VRAI) wattron(fenetre->sf, COLOR_PAIR(SELECT));
-    wmove(fenetre->sf, 7,0);
-    wprintw(fenetre->sf, "Web + SQL--------");
-  if(isWebsql == FAUX) wattroff(fenetre->sf, COLOR_PAIR(DESELECT));
-  if(isWebsql == VRAI) wattroff(fenetre->sf, COLOR_PAIR(SELECT));
-
   wrefresh(fenetre->sf);
 }
 
-void affiche_options(fenetre_t *fenetre, int isNcurses, int isPthread){
+void affiche_options(fenetre_t *fenetre, int isNcurses, int isPthread, int isLexYacc){
   if(isNcurses == FAUX) wattron(fenetre->sf, COLOR_PAIR(DESELECT));
   if(isNcurses == VRAI) wattron(fenetre->sf, COLOR_PAIR(SELECT));
     wmove(fenetre->sf, 0,0);
@@ -144,6 +130,13 @@ void affiche_options(fenetre_t *fenetre, int isNcurses, int isPthread){
     wprintw(fenetre->sf, "Pthread-----------");
   if(isPthread == FAUX) wattroff(fenetre->sf, COLOR_PAIR(DESELECT));
   if(isPthread == VRAI) wattroff(fenetre->sf, COLOR_PAIR(SELECT));
+
+  if(isLexYacc == FAUX) wattron(fenetre->sf, COLOR_PAIR(DESELECT));
+  if(isLexYacc == VRAI) wattron(fenetre->sf, COLOR_PAIR(SELECT));
+    wmove(fenetre->sf, 2,0);
+    wprintw(fenetre->sf, "Lex & Yacc--------");
+  if(isLexYacc == FAUX) wattroff(fenetre->sf, COLOR_PAIR(DESELECT));
+  if(isLexYacc == VRAI) wattroff(fenetre->sf, COLOR_PAIR(SELECT));
   wrefresh(fenetre->sf);
 }
 

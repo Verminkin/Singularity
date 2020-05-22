@@ -11,6 +11,7 @@ void clicWeb(int* isWeb);
 void clicWebsql(int* isWebsql);
 void clicNcurses(int* isNcurses, int isC);
 void clicPthread(int* isPthread, int isC);
-void build_def(char* filename_def, int isAssembleur, int isC, int isNcurses, int isPthread, int isJava, int isR, int isReseau, int isScilab, int isWeb, int isWebsql);
+void clicLexYacc(int* isLexYacc, int isC);
+void build_def(char* filename_def, int isAssembleur, int isC, int isNcurses, int isPthread, int isLexYacc, int isJava, int isR, int isReseau, int isScilab);
 
 #endif
